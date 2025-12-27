@@ -1,12 +1,10 @@
 const app = require('./app');
-const http = require('http');
-const { Server } = require('socket.io');
 
-let server;
+if (process.env.NODE_ENV !== 'production') {
+  const http = require('http');
+  const { Server } = require('socket.io');
 
-//  Only create server when NOT on Vercel
-if (!process.env.VERCEL) {
-  server = http.createServer(app);
+  const server = http.createServer(app);
 
   const io = new Server(server, {
     cors: {
@@ -16,18 +14,12 @@ if (!process.env.VERCEL) {
   });
 
   io.on('connection', (socket) => {
-    console.log('User connected:', socket.id);
-
     socket.on('join-workspace', (workspaceId) => {
       socket.join(`workspace-${workspaceId}`);
     });
 
     socket.on('send-update', ({ workspaceId, data }) => {
       socket.to(`workspace-${workspaceId}`).emit('receive-update', data);
-    });
-
-    socket.on('disconnect', () => {
-      console.log('User disconnected:', socket.id);
     });
   });
 
@@ -37,5 +29,4 @@ if (!process.env.VERCEL) {
   });
 }
 
-//  Vercel needs ONLY the Express app
 module.exports = app;
