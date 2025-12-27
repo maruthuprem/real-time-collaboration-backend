@@ -37,5 +37,5 @@ if (!process.env.VERCEL) {
   });
 }
 
-// ✅ Vercel needs ONLY the Express app
+//  Vercel needs ONLY the Express app
 module.exports = app;
