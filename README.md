@@ -41,3 +41,16 @@ This project is a backend service for real-time collaboration built as part of a
 ```bash
 npm install
 npm run dev
+
+## Live Deployment
+https://real-time-collaboration-backend-yxsu.onrender.com
+
+## API Documentation
+https://real-time-collaboration-backend-yxsu.onrender.com/api-docs
+
+## Run Locally
+npm install
+npm run dev
+
+## Testing
+npm test
